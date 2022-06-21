@@ -1,17 +1,11 @@
-import time
-
 from flask import Flask, render_template, request, url_for, redirect
 from keras.saving.model_config import model_from_json
 from keras.preprocessing.image import *
 import os
 
-
-if not os.path.exists('uploads'):
-    os.mkdir("uploads")
-if not os.path.exists('uploads/NORMAL'):
-    os.mkdir("uploads/NORMAL")
-if not os.path.exists('uploads/PNEUMONIA'):
-    os.mkdir("uploads/PNEUMONIA")
+for path in ['uploads', 'uploads/NORMAL', 'uploads/PNEUMONIA']:
+    if not os.path.exists(path):
+        os.mkdir(path)
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads/NORMAL'
@@ -28,15 +22,12 @@ loaded_model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['
 test_datagen = ImageDataGenerator(rescale=1. / 255)
 test_data_dir = 'uploads'
 
-# dict = {}
-
 
 @app.route('/', methods=['POST', 'GET'])
 def home():
     if request.method == 'POST':
         dict = {}
         files = request.files.getlist('file')
-        dict.clear()
         for file in files:
             folder = 'uploads/NORMAL/'
             for the_file in os.listdir(folder):
@@ -59,18 +50,8 @@ def home():
                     dict[file.filename] = 'Пневмония'
             else:
                 return 'Файл должен иметь расширение jpg или jpeg'
-        # return redirect(url_for('result'))
         return render_template('result.html', dict=dict)
     return render_template('index.html')
-
-
-# @app.route('/result')
-# def result():
-#     time.sleep(2)
-#     print('Проверка словаря')
-#     for key, value in dict.items():
-#         print(key, value)
-#     return render_template('result.html', dict=dict)
 
 
 if __name__ == '__main__':
