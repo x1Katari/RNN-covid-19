@@ -30,6 +30,7 @@ test_data_dir = 'uploads'
 
 dict = {}
 
+
 @app.route('/', methods=['POST', 'GET'])
 def home():
     if request.method == 'POST':
@@ -60,9 +61,13 @@ def home():
         return redirect(url_for('result'))
     return render_template('index.html')
 
+
 @app.route('/result')
 def result():
     time.sleep(2)
+    print('Проверка словаря')
+    for key, value in dict.items():
+        print(key, value)
     return render_template('result.html', dict=dict)
 
 
