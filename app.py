@@ -28,12 +28,13 @@ loaded_model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['
 test_datagen = ImageDataGenerator(rescale=1. / 255)
 test_data_dir = 'uploads'
 
-dict = {}
+# dict = {}
 
 
 @app.route('/', methods=['POST', 'GET'])
 def home():
     if request.method == 'POST':
+        dict = {}
         files = request.files.getlist('file')
         dict.clear()
         for file in files:
@@ -58,17 +59,18 @@ def home():
                     dict[file.filename] = 'Пневмония'
             else:
                 return 'Файл должен иметь расширение jpg или jpeg'
-        return redirect(url_for('result'))
+        # return redirect(url_for('result'))
+        return render_template('result.html', dict=dict)
     return render_template('index.html')
 
 
-@app.route('/result')
-def result():
-    time.sleep(2)
-    print('Проверка словаря')
-    for key, value in dict.items():
-        print(key, value)
-    return render_template('result.html', dict=dict)
+# @app.route('/result')
+# def result():
+#     time.sleep(2)
+#     print('Проверка словаря')
+#     for key, value in dict.items():
+#         print(key, value)
+#     return render_template('result.html', dict=dict)
 
 
 if __name__ == '__main__':
