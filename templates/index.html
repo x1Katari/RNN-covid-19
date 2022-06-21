@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Гаскаров Динар</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+	<form id="upload-container" method="POST" enctype="multipart/form-data">
+		<img id="upload-image" src="static/img/upload.svg">
+		<div>
+			<input id="file-input" type="file" name="file" multiple>
+			<label for="file-input">Выберите файлы</label>
+			<span>или перетащите их сюда</span>
+		</div>
+		<div>
+			<input type = "submit"/>
+		</div>
+	</form>
+</body>
+</html>

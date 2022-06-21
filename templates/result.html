@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+    <title>Гаскаров Динар</title>
+</head>
+<body>
+	<input class="button" type="button" onclick="history.back(-2); return false;" value="Назад"/>
+    <table class="table">
+	<thead>
+		<tr>
+			<th>Имя файла</th>
+			<th>Результат</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		{% for key, value in dict.items() %}
+		<tr>
+			<td>{{ key }}</td>
+			<td>{{ value }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+</body>
+</html>
