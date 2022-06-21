@@ -3,16 +3,18 @@ from keras.saving.model_config import model_from_json
 from keras.preprocessing.image import *
 import os
 
-app = Flask(__name__)
-UPLOAD_FOLDER = 'uploads/NORMAL'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-ALLOWED_EXTENSIONS = ['jpg', 'jpeg']
 
-
+if not os.path.exists('uploads'):
+    os.mkdir("uploads")
 if not os.path.exists('uploads/NORMAL'):
     os.mkdir("uploads/NORMAL")
 if not os.path.exists('uploads/PNEUMONIA'):
     os.mkdir("uploads/PNEUMONIA")
+
+app = Flask(__name__)
+UPLOAD_FOLDER = 'uploads/NORMAL'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = ['jpg', 'jpeg']
 
 batch_size = 20
 json_file = open('model.json', 'r')
@@ -62,4 +64,4 @@ def result():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5003, debug=True)
+    app.run(host='0.0.0.0', debug=False)
