@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, render_template, request, url_for, redirect
 from keras.saving.model_config import model_from_json
 from keras.preprocessing.image import *
@@ -60,6 +62,7 @@ def home():
 
 @app.route('/result')
 def result():
+    time.sleep(2)
     return render_template('result.html', dict=dict)
 
 
